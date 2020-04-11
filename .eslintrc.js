@@ -13,6 +13,7 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'vue/valid-v-model': 'off',
   },
   overrides: [
     {
@@ -23,6 +24,11 @@ module.exports = {
       env: {
         jest: true,
       },
+      rules: {
+        'max-len': [0],
+        'vue/valid-v-model': "off",
+        "no-console": "off"
+      }
     },
   ],
 };
