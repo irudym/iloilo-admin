@@ -65,6 +65,9 @@ export default {
       console.log('Cannot load quizzes due to error: ', error.message);
       // TODO: show error
       this.errorMessage = error;
+      if (error.detail === 'Not enough or too many segments') {
+        this.$router.push('/admin/login');
+      }
     }
   },
   methods: {

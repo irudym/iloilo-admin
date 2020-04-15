@@ -65,6 +65,9 @@ export default {
       this.activeQuizzes = response.data;
     } catch (error) {
       this.errorMessage = error;
+      if (error.detail === 'Not enough or too many segments') {
+        this.$router.push('/admin/login');
+      }
     }
   },
   computed: {

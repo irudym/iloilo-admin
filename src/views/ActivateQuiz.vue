@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid vh-100">
+  <div>
     <div class="activate_quizzes row">
       <div class="col-lg-9">
           <p class="title">Начать тестирование</p>
@@ -36,6 +36,12 @@
         </div>
         <div class="col-md-7">
           <h4>Информация о тестировании</h4>
+          На тест ответили
+          <ul>
+            <li v-for="user in submittedUsers" :key="user.name+user.score" >
+              {{user.name}} с результатом {{user.score}}%
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -70,6 +76,7 @@ export default {
       started: false,
       endedAt: null,
       connectedUsers: [],
+      submittedUsers: [],
     };
   },
   methods: {
@@ -95,6 +102,7 @@ export default {
           id: this.id,
         });
         this.connectedUsers = response.data.attributes.connected_users;
+        this.submittedUsers = response.data.attributes.submitted_users;
       } catch (error) {
         this.errorMessage = error;
       }
@@ -108,12 +116,16 @@ export default {
       this.started = response.data.attributes.started;
       this.endedAt = response.data.attributes.ended_at;
       this.connectedUsers = response.data.attributes.connected_users;
+      this.submittedUsers = response.data.attributes.submitted_users;
 
       // start users update
-      const tid = setInterval(this.updateUsers, 1000);
+      const tid = setInterval(this.updateUsers, 3000);
       this.setTimeInterval(tid);
     } catch (error) {
       this.errorMessage = error;
+      if (error.detail === 'Not enough or too many segments') {
+        this.$router.push('/admin/login');
+      }
     }
   },
   computed: {
