@@ -11,7 +11,7 @@
     <div class="answer-block" v-for="answer in question.answers" :key="answer.id">
       <div class="answer-buttons">
         <checkbox id="answer.id" style="margin-bottom: 20px;" v-model="answer.correct" />
-        <remove-button @click="removeAnswer(answer.id)"/>
+        <remove-button @click="removeAnswer(answer.id)" :width="'1.3rem'" />
       </div>
       <float-label
         class="fl"
@@ -95,8 +95,6 @@ export default {
       return null;
     },
     update() {
-      console.log('Update clicked');
-
       if (!this.validate()) {
         this.errors = {};
         this.$emit('update', { ...this.question });

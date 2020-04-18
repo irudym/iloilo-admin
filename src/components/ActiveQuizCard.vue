@@ -16,8 +16,8 @@
           {{quiz.attributes.pin}}
         </h1>
         <h4>{{quiz.attributes.title}}</h4>
-        <div v-if="quiz.attributes.started" class="started">
-            В процессе...
+        <div class="started" :style="infoStyle">
+            {{currentStatus}}
         </div>
         <div v-if="quiz.attributes.ended_at" class="timestamp">
           Время завершения {{endedDate}}, осталось {{remainedTime}}
@@ -73,6 +73,19 @@ export default {
       const hours = Math.round(remained / 1000 / 60 / 60);
       const minutes = Math.round((remained - hours * 60 * 60 * 1000) / 1000 / 60);
       return `${hours} часов, ${minutes} минут`;
+    },
+    currentStatus() {
+      let status = 'Тест не активирован';
+      if (this.quiz.attributes.started) {
+        status = 'В процесcе...';
+      }
+      if (!this.quiz.attributes.is_valid) {
+        status = 'Тест завершён';
+      }
+      return status;
+    },
+    infoStyle() {
+      return this.quiz.attributes.is_valid ? null : { color: '#E8150C' };
     },
   },
 };

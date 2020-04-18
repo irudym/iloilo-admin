@@ -1,6 +1,6 @@
 <template>
   <div class="trash-button" @click="remove">
-    <icon name="trash"/>
+    <icon name="trash" :width="width" />
     <div class="trash-dialog" :style="dialogStyle">
       <div class="text">
         Удалить?
@@ -22,6 +22,9 @@ export default {
   name: 'TrashButton',
   components: {
     Icon,
+  },
+  props: {
+    width: String,
   },
   data() {
     return {

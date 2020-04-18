@@ -1,6 +1,6 @@
 <template>
   <button class="remove-button" v-on:click.stop.prevent="$emit('click')">
-    <Icon name="trash" />
+    <Icon name="trash" :width="width" />
   </button>
 </template>
 
@@ -11,6 +11,9 @@ export default {
   name: 'RemoveButton',
   components: {
     Icon,
+  },
+  props: {
+    width: String,
   },
 };
 </script>

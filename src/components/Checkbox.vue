@@ -18,6 +18,12 @@ export default {
         return null;
       },
     },
+    disabled: {
+      type: Boolean,
+      default() {
+        return false;
+      },
+    },
   },
   methods: {
     update(e) {

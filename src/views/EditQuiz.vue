@@ -11,37 +11,48 @@
       </div>
       <div class="col-lg-3" />
     </div>
-    <div class="row edit-form">
-      <div class="col-lg-7">
-        <error-message v-show="errorMessage" v-bind:message="errorMessage" />
-        <float-label label="Название теста" v-bind:error="errors.title" :value="title">
-            <input name="quiztitle" type="text" autocomplete="off" v-model="title" />
-        </float-label>
-        <float-label label="Описание" :error="errors.description" :value="description">
-          <textarea name="description" rows="4" v-model="description" />
-        </float-label>
-      </div>
-    </div>
-    <div v-for="question in questions" :key="question.id" class="row">
-      <div class="col-lg-7">
-        <question-card
-          v-if="question.id !== editQuestionID"
-          :question="question"
-          @edit="editQuestion(question.id)"
-          @delete="deleteQuestion(question.id)"
-        />
-        <edit-question
-          v-if="question.id === editQuestionID"
-          :question="question"
-          @update="updateQuestion"
-          @cancel="cancelUpdateQuestion"
-        />
-      </div>
-    </div>
-    <add-question v-show="addQuestionForm" @click="saveQuestion" @cancel="cancelQuestion" />
     <div class="row">
-      <div class="col-lg-7" v-show="!addQuestionForm">
-        <add-button title="Добавить вопрос" @click="addQuestion"/>
+      <div class="col-lg-6 edit-panel">
+        <div class="row edit-form">
+          <div class="col-lg-12">
+            <error-message v-show="errorMessage" v-bind:message="errorMessage" />
+            <float-label label="Название теста" v-bind:error="errors.title" :value="title">
+                <input name="quiztitle" type="text" autocomplete="off" v-model="title" />
+            </float-label>
+            <float-label label="Описание" :error="errors.description" :value="description">
+              <textarea name="description" rows="4" v-model="description" />
+            </float-label>
+          </div>
+        </div>
+        <div v-for="question in questions" :key="question.id" class="row">
+          <div class="col-lg-12">
+            <question-card
+              v-if="question.id !== editQuestionID"
+              :question="question"
+              @edit="editQuestion(question.id)"
+              @delete="deleteQuestion(question.id)"
+            />
+            <edit-question
+              v-if="question.id === editQuestionID"
+              :question="question"
+              @update="updateQuestion"
+              @cancel="cancelUpdateQuestion"
+            />
+          </div>
+        </div>
+        <add-question v-show="addQuestionForm" @click="saveQuestion" @cancel="cancelQuestion" />
+        <div class="row">
+          <div class="col-lg-12" v-show="!addQuestionForm">
+            <add-button title="Добавить вопрос" @click="addQuestion"/>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 setup-panel">
+        <h4>Настройки теста</h4>
+        <div class="options">
+          <option-input title="Длительность тестирования" v-model="duration" units="минут" />
+          <option-input title="Максимальная оценка за тест" v-model="maxScore" units="баллов" />
+        </div>
       </div>
     </div>
   </div>
@@ -56,6 +67,7 @@ import ErrorMessage from '../components/ErrorMessage.vue';
 import AddQuestion from '../components/AddQuestion.vue';
 import QuestionCard from '../components/QuestionCard.vue';
 import EditQuestion from '../components/EditQuestion.vue';
+import OptionInput from '../components/OptionInput.vue';
 import {
   fetchQuiz,
   updateQuiz,
@@ -76,6 +88,7 @@ export default {
     AddQuestion,
     QuestionCard,
     EditQuestion,
+    OptionInput,
   },
   props: {
     id: {
@@ -98,6 +111,8 @@ export default {
       questions: [],
       questionCount: 0,
       tempQuestion: null,
+      duration: 0,
+      maxScore: 0,
     };
   },
   methods: {
@@ -126,6 +141,8 @@ export default {
               attributes: {
                 title: this.title,
                 description: this.description,
+                duration: this.duration,
+                max_score: this.maxScore,
               },
             },
           };
@@ -239,6 +256,9 @@ export default {
         this.title = quiz.title;
         this.description = quiz.description;
         this.questions = quiz.questions;
+        this.duration = quiz.duration;
+        this.maxScore = quiz.max_score;
+        console.log('SET DURATION: ', quiz.duration);
       } catch (error) {
         console.log('Cannot load quiz due to: ', error);
         // show the error message
@@ -253,9 +273,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../styles/colours.scss';
 
 .edit-form {
   margin-top: 2rem;
+}
+
+.edit-panel {
+  border-right: 1px solid $form_border-colour;
+}
+
+.setup-panel {
+  h4 {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 1.0rem;
+    color: $title-colour;
+  }
+
+  .options {
+    font-size: 1rem;
+    color: $options-colour;
+    line-height: 1.5rem;
+    margin-top: 3rem;
+  }
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <img alt="icon" :src="iconName" class="svg" @click="$emit('click')" />
+  <img alt="icon" :src="iconName" :style="iconStyle" @click="$emit('click')" />
 </template>
 
 <script>
@@ -12,6 +12,10 @@ export default {
   name: 'Icon',
   props: {
     name: String,
+    width: {
+      type: String,
+      default: () => ('1.7rem'),
+    },
   },
   data() {
     return {
@@ -27,17 +31,17 @@ export default {
     iconName() {
       return this.links[this.name];
     },
+    iconStyle() {
+      return {
+        height: this.width,
+      };
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.icon {
-
-}
-
 .svg {
   height: 1.7rem;
 }
-
 </style>

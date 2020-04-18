@@ -1,6 +1,6 @@
 <template>
 <div class="row add-question">
-  <div class="col-lg-7">
+  <div class="col-12">
     <div class="add-form">
       <float-label label="Вопрос" :error="errors.question">
             <textarea name="description" rows="2" v-model="text" />
@@ -10,6 +10,7 @@
           <checkbox id="answer.id" style="margin-bottom: 20px;" v-model="answer.correct" />
           <trash-button
             @click="removeAnswer(answer.id)"
+            :width="'1.3rem'"
             :style="{'position': 'relative', 'margin-top': '3.3rem'}"
           />
         </div>

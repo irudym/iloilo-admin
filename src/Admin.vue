@@ -115,11 +115,19 @@ button {
   font-weight: 500;
   font-size: 1rem;
   border-radius: 6px;
-  box-shadow: 0px 2px 12px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 1px 5px 0px rgba(0,0,0,0.5);
   outline: none;
   cursor: pointer;
   border: none;
   min-width: 8rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+body {
+  font-size: 14px;
 }
 
 

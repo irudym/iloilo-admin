@@ -39,7 +39,7 @@
           На тест ответили
           <ul>
             <li v-for="user in submittedUsers" :key="user.name+user.score" >
-              {{user.name}} с результатом {{user.score}}%
+              {{user.name}} с результатом {{user.score}}
             </li>
           </ul>
         </div>
