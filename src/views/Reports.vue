@@ -38,9 +38,14 @@ export default {
   },
   mounted() {
     clearInterval(this.getTimeInterval);
+
+    // check if user logged in
+    if (!this.isLogged) {
+      this.$router.push('/admin/login');
+    }
   },
   computed: {
-    ...mapGetters(['getTimeInterval']),
+    ...mapGetters(['getTimeInterval', 'isLogged']),
   },
 };
 </script>

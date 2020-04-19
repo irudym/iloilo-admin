@@ -60,6 +60,12 @@ export default {
   },
   async mounted() {
     clearInterval(this.getTimeInterval);
+
+    // check if user logged in
+    if (!this.isLogged) {
+      this.$router.push('/admin/login');
+    }
+
     try {
       const response = await fetchActiveQuizzes({ url: serverUrl, token: this.getToken });
       this.activeQuizzes = response.data;
@@ -71,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getToken', 'getTimeInterval']),
+    ...mapGetters(['getToken', 'getTimeInterval', 'isLogged']),
   },
 };
 </script>

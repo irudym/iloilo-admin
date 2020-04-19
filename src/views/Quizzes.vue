@@ -55,6 +55,11 @@ export default {
   },
   async mounted() {
     clearInterval(this.getTimeInterval);
+
+    // check if user logged in
+    if (!this.isLogged) {
+      this.$router.push('/admin/login');
+    }
     // console.log('Quizzes mounted');
 
     // send request to API server and download available quizzes
@@ -95,7 +100,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getToken', 'getTimeInterval']),
+    ...mapGetters(['getToken', 'getTimeInterval', 'isLogged']),
   },
 };
 </script>

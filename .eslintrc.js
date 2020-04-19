@@ -11,8 +11,8 @@ module.exports = {
     parser: 'babel-eslint',
   },
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': process.env.NODE_ENV === 'production' ? 'off' : 'off', //change it back to error!
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'off' : 'off',
     'vue/valid-v-model': 'off',
   },
   overrides: [

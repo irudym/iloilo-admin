@@ -8,6 +8,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Sidebar from './components/Sidebar.vue';
 
 export default {
@@ -46,6 +47,16 @@ export default {
         },
       ],
     };
+  },
+  mounted() {
+    // check if an user logged in, otherwise send to login
+    console.log('Check user');
+    if (!this.isLogged) {
+      this.$router.go('/admin/login');
+    }
+  },
+  computed: {
+    ...mapGetters(['isLogged']),
   },
 };
 </script>
