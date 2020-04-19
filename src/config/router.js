@@ -69,7 +69,7 @@ export default new Router({
         },
         {
           path: 'groups/edit/:id',
-          name: 'add_group',
+          name: 'edit_group',
           component: EditGroup,
           props: true,
         },
