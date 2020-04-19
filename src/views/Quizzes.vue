@@ -67,10 +67,11 @@ export default {
       const response = await fetchQuizzes({ url: serverUrl, token: this.getToken });
       this.quizzes = [...response.data];
     } catch (error) {
-      console.log('Cannot load quizzes due to error: ', error.message);
-      // TODO: show error
+      // console.log('[Quizzes.vue]=> Cannot load quizzes due to error: ', error);
       this.errorMessage = error;
-      if (error.detail === 'Not enough or too many segments') {
+      if (error.detail === 'Not enough or too many segments'
+          || error.detail === 'Signature verification raised') {
+        // console.log('[Quizzes.vue]=> re-route to login: ');
         this.$router.push('/admin/login');
       }
     }

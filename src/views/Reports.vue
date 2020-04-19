@@ -5,6 +5,7 @@
           <p class="title">Отчеты</p>
           <div class="row">
             <div class="col-lg-3">
+              Зайдите, пожалуйста, позже. Идут работы...
             </div>
           </div>
       </div>

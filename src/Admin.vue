@@ -39,11 +39,6 @@ export default {
           name: 'Группы',
           link: '/admin/groups',
         },
-        {
-          id: 202,
-          name: 'Студенты',
-          link: '/admin/students',
-        },
       ],
     };
   },

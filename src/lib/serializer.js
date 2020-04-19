@@ -110,3 +110,14 @@ export const serializeQuestion = (text, answers, quizId) => {
   }
   return question;
 };
+
+export const serializeGroup = ({ name, description, id }) => ({
+  data: {
+    id,
+    type: 'group',
+    attributes: {
+      name,
+      description,
+    },
+  },
+});

@@ -308,3 +308,113 @@ export const login = async ({ url, credentials }) => {
     throw constructError(error);
   }
 };
+
+/**
+ * Load all groups from server
+ * @param {string} url API server URL
+ * @param {string} token ID token which provided after login
+ */
+export const fetchGroups = async ({ url, token }) => {
+  try {
+    const response = await axios.get(`${url}/groups`, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw constructError(error);
+  }
+};
+
+/**
+ * Load a group record from server
+ * @param {string} url API server URL
+ * @param {string} token ID token which provided after login
+ * @param {number} id ID of the record
+ */
+export const fetchGroup = async ({ url, token, id }) => {
+  try {
+    const response = await axios.get(`${url}/groups/${id}`, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw constructError(error);
+  }
+};
+
+/**
+ * Create a group record
+ * @param {string} url API server URL
+ * @param {string} token ID token which provided after login
+ * @param {object} group Group json object representation
+ */
+export const createGroup = async ({ url, token, group }) => {
+  try {
+    const response = await axios.post(
+      `${url}/groups`,
+      group,
+      {
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    // eslint-disable-next-line no-throw-literal
+    throw constructError(error);
+  }
+};
+
+/**
+ * Update group resource  at the server
+ * @param {string} url API server URL
+ * @param {string} token Security token
+ * @param {object} group Group object (serialized)
+ */
+export const updateGroup = async ({ url, token, group }) => {
+  try {
+    const response = await axios.put(
+      `${url}/groups/${group.data.id}`,
+      group,
+      {
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    return response.data;
+  } catch (error) {
+    throw constructError(error);
+  }
+};
+
+
+/**
+ * Delete group's record
+ * @param {string} url API server URL
+ * @param {string} token Security token
+ * @param {number} id group id
+ */
+export const deleteGroup = async ({ url, token, id }) => {
+  try {
+    const response = await axios.delete(`${url}/groups/${id}`,
+      {
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      });
+    return response.data;
+  } catch (error) {
+    throw constructError(error);
+  }
+};

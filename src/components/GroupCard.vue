@@ -1,29 +1,20 @@
 <template>
-  <div class="row quizzes" :style="quizzesClass">
+  <div class="row groups" :style="groupClass">
     <div class="col-sm-7">
       <div class="tool-panel" >
         <icon name="edit" class="tool-button" @click="$emit('edit')" />
-        <icon name="play" class="tool-button play-button" @click="$emit('start')" />
         <trash-button @click="remove" />
       </div>
       <div class="type-line" />
       <div class="main">
-        <h1>{{quiz.attributes.title}}</h1>
-        <div class="timestamp">
-          Дата создания {{createdDate}}
-        </div>
-        <div class="description">{{quiz.attributes.description}}</div>
+        <h1>{{group.attributes.name}}</h1>
+        <div class="description">{{group.attributes.description}}</div>
       </div>
     </div>
     <div class="col-sm-5">
       <div class="info-panel">
         <p>
-          В тесте {{amountOfQuestions}}
-        </p>
-        <p>
-          Продолжительность теста {{duration}}
-        <p>
-          Редактировался в последний раз {{updatedDate}}
+          В группе {{amountOfStudents}}
         </p>
       </div>
     </div>
@@ -38,22 +29,22 @@ import { createCountFormatter } from '../lib/utils';
 export default {
   name: 'QuizCard',
   components: {
-    Icon,
     TrashButton,
+    Icon,
   },
   props: {
-    quiz: Object,
+    group: Object,
   },
   data() {
     return {
-      quizzesClass: {},
+      groupClass: {},
       hiddenContent: {},
     };
   },
   methods: {
     remove() {
       // eslint-disable-next-line quote-props
-      this.quizzesClass = {
+      this.groupClass = {
         'max-height': '0px',
         opacity: 0,
       };
@@ -62,29 +53,13 @@ export default {
     },
   },
   computed: {
-    createdDate() {
-      const date = new Date(this.quiz.attributes.created_at);
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-    },
-    amountOfQuestions() {
+    amountOfStudents() {
       const string = createCountFormatter({
-        one: 'вопрос',
-        two: 'вопроса',
-        few: 'вопросов',
-      })(this.quiz.relationships.questions.data.length);
-      return `${this.quiz.relationships.questions.data.length} ${string}`;
-    },
-    updatedDate() {
-      const date = new Date(this.quiz.attributes.updated_at);
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
-    },
-    duration() {
-      const string = createCountFormatter({
-        one: 'минута',
-        two: 'минуты',
-        few: 'минут',
-      })(this.quiz.attributes.duration);
-      return `${this.quiz.attributes.duration} ${string}`;
+        one: 'студент',
+        two: 'студента',
+        few: 'студентов',
+      })(this.group.attributes.user_count);
+      return `${this.group.attributes.user_count} ${string}`;
     },
   },
 };
@@ -93,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/colours.scss';
 
-.quizzes {
+.groups {
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: ease-out;
@@ -154,21 +129,16 @@ export default {
     border-radius: 5px;
 }
 
-.timestamp {
-  margin-top: -0.5rem;
-  margin-bottom: 2rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: $description-colour;
-}
-
 .info-panel {
   font-family: Roboto;
   font-weight: 400;
   font-size: 1rem;
   color: $description-colour;
   overflow-x: hidden;
-  padding-top: 0.67rem;
+
+  p {
+    margin-top: 1.6rem;
+  }
 }
 
 </style>

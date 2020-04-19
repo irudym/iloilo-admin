@@ -9,6 +9,9 @@ import ActiveQuizzes from '../views/ActiveQuizzes.vue';
 import Login from '../views/Login.vue';
 import Registration from '../views/Registration.vue';
 import Reports from '../views/Reports.vue';
+import Groups from '../views/Groups.vue';
+import AddGroup from '../views/AddGroup.vue';
+import EditGroup from '../views/EditGroup.vue';
 
 Vue.use(Router);
 
@@ -53,6 +56,22 @@ export default new Router({
           path: 'active_quizzes',
           name: 'active_quizzes',
           component: ActiveQuizzes,
+        },
+        {
+          path: 'groups',
+          name: 'groups',
+          component: Groups,
+        },
+        {
+          path: 'groups/add',
+          name: 'add_group',
+          component: AddGroup,
+        },
+        {
+          path: 'groups/edit/:id',
+          name: 'add_group',
+          component: EditGroup,
+          props: true,
         },
         {
           path: 'reports',
