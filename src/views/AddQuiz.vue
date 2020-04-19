@@ -162,7 +162,7 @@ export default {
           } catch (error) {
             console.log('Cannot post quiz due to: ', error);
             // show the error message
-            this.errorMessage = error.message;
+            this.errorMessage = error;
           }
         }
       }
