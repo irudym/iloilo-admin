@@ -82,7 +82,7 @@ export default {
   methods: {
     ...mapActions(['setTimeInterval']),
     back() {
-      this.$router.go(-1);
+      this.$router.push('/admin/active_quizzes');
     },
     async start() {
       try {

@@ -5,7 +5,6 @@
           <p class="title">Текущие тестирования</p>
           <div class="row">
             <div class="col-lg-3">
-              <ok-button title="<< Назад" @click="back"/>
             </div>
           </div>
       </div>
@@ -31,7 +30,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import OkButton from '../components/OkButton.vue';
+// import OkButton from '../components/OkButton.vue';
 import ErrorMessage from '../components/ErrorMessage.vue';
 import ActiveQuizCard from '../components/ActiveQuizCard.vue';
 import { fetchActiveQuizzes } from '../lib/api';
@@ -40,7 +39,7 @@ import { serverUrl } from '../config/globals';
 export default {
   name: 'ActiveQuizzes',
   components: {
-    OkButton,
+    // OkButton,
     ErrorMessage,
     ActiveQuizCard,
   },
