@@ -418,3 +418,17 @@ export const deleteGroup = async ({ url, token, id }) => {
     throw constructError(error);
   }
 };
+
+export const fetchReport = async ({ url, token, id }) => {
+  try {
+    const response = await axios.get(`${url}/reports/${id}`, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw constructError(error);
+  }
+};

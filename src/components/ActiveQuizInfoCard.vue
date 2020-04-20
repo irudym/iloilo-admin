@@ -1,11 +1,6 @@
 <template>
-  <div class="row quizzes" :style="quizzesClass">
+  <div class="row info-quizzes" :style="quizzesClass" @click="$emit('click')">
     <div class="col-sm-7">
-      <div class="tool-panel" >
-        <icon name="edit" class="tool-button" @click="$emit('edit')" />
-        <trash-button @click="remove" />
-      </div>
-      <div class="type-line" />
       <div class="main">
         <h1>
           <icon
@@ -38,13 +33,11 @@
 </template>
 
 <script>
-import TrashButton from './TrashButton.vue';
 import Icon from './Icon.vue';
 
 export default {
-  name: 'ActiveQuizCard',
+  name: 'ActiveQuizInfoCard',
   components: {
-    TrashButton,
     Icon,
   },
   props: {
@@ -99,7 +92,7 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/colours.scss';
 
-.quizzes {
+.info-quizzes {
   transition-property: all;
   transition-duration: 0.3s;
   transition-timing-function: ease-out;
@@ -108,6 +101,13 @@ export default {
   height: auto;
   overflow: hidden;
   margin-top: 3rem;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.info-quizzes:hover {
+  border: 1px solid $form_border-colour;
 }
 
 .main {

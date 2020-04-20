@@ -86,6 +86,13 @@ body {
   }
 }
 
+h4 {
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 1rem;
+  color: $description-colour;
+}
+
 #nav {
   padding: 30px;
 

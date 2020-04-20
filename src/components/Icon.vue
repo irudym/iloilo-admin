@@ -7,6 +7,9 @@ import EditIcon from '../assets/icons/edit.svg';
 import TrashIcon from '../assets/icons/trash-alt.svg';
 import PlayIcon from '../assets/icons/play-circle.svg';
 import ClockIcon from '../assets/icons/clock.svg';
+import Flag from '../assets/icons/flag-checkered.svg';
+import Times from '../assets/icons/times.svg';
+import Check from '../assets/icons/check.svg';
 
 export default {
   name: 'Icon',
@@ -24,6 +27,9 @@ export default {
         trash: TrashIcon,
         play: PlayIcon,
         clock: ClockIcon,
+        times: Times,
+        flag: Flag,
+        check: Check,
       },
     };
   },

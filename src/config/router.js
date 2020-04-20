@@ -12,6 +12,7 @@ import Reports from '../views/Reports.vue';
 import Groups from '../views/Groups.vue';
 import AddGroup from '../views/AddGroup.vue';
 import EditGroup from '../views/EditGroup.vue';
+import QuizReport from '../views/QuizReport.vue';
 
 Vue.use(Router);
 
@@ -77,6 +78,12 @@ export default new Router({
           path: 'reports',
           name: 'reports',
           component: Reports,
+        },
+        {
+          path: 'reports/:id',
+          name: 'quiz_report',
+          component: QuizReport,
+          props: true,
         },
       ],
     },
