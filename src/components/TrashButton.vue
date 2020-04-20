@@ -90,7 +90,7 @@ export default {
   }
 
   .yes-field {
-    background: $trash_button-colour;
+    background: $yes_button-colour;
     padding: 0.2rem 1rem;
     color: #ffffff;
     width: 4rem;

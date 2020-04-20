@@ -10,6 +10,9 @@ import ClockIcon from '../assets/icons/clock.svg';
 import Flag from '../assets/icons/flag-checkered.svg';
 import Times from '../assets/icons/times.svg';
 import Check from '../assets/icons/check.svg';
+import Info from '../assets/icons/info-circle.svg';
+import Cog from '../assets/icons/cog.svg';
+import User from '../assets/icons/user-alt.svg';
 
 export default {
   name: 'Icon',
@@ -30,6 +33,9 @@ export default {
         times: Times,
         flag: Flag,
         check: Check,
+        info: Info,
+        cog: Cog,
+        user: User,
       },
     };
   },

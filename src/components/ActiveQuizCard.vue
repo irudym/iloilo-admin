@@ -25,7 +25,7 @@
             {{currentStatus}}
         </div>
         <div v-if="quiz.attributes.ended_at" class="timestamp">
-          Время завершения {{endedDate}}, осталось {{remainedTime}}
+          Время завершения {{endedDate}} {{remainedTime}}
         </div>
         <div class="description">{{quiz.attributes.description}}</div>
       </div>
@@ -69,15 +69,18 @@ export default {
   computed: {
     endedDate() {
       const date = new Date(this.quiz.attributes.ended_at);
-      return `${date.getHours()}:${date.getMinutes()} / ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      return `${date.getHours()}:${date.getMinutes()} | ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
     },
     remainedTime() {
+      if (!this.quiz.attributes.is_valid) {
+        return null;
+      }
       const currentDate = new Date();
       const endedDate = new Date(this.quiz.attributes.ended_at);
       const remained = endedDate - currentDate;
       const hours = Math.round(remained / 1000 / 60 / 60);
       const minutes = Math.round((remained - hours * 60 * 60 * 1000) / 1000 / 60);
-      return `${hours} часов, ${minutes} минут`;
+      return `, осталось ${hours} часов, ${minutes} минут`;
     },
     currentStatus() {
       let status = 'Тест не активирован';
