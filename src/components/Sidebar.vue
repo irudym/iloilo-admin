@@ -3,7 +3,7 @@
     <logo width="120px" :style="{'margin-top':'3rem'}"/>
     <div class="sidebar-content">
       <ul class="side-menu">
-        <router-link v-for="item in items" :key="item.id" v-bind:to="item.link">
+        <router-link v-for="item in items" :key="item.id" v-bind:to="item.link" class="router-link">
           <li>
             {{item.name}}
           </li>
@@ -35,6 +35,18 @@ export default {
 @import '../styles/layout.scss';
 @import '../styles/colours.scss';
 
+.router-link-active {
+  border-right: 10px solid $sidemenu-highlight;
+}
+
+.router-link {
+  margin: 0.2rem 0;
+}
+
+.router-link:hover {
+  border-right: 10px solid $sidemenu-highlight;
+}
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -58,17 +70,12 @@ export default {
     flex-direction: column;
 
     li {
-      margin: 0.2rem 0;
+      //margin: 0.2rem 0;
       text-align: left;
       padding: 1rem 4rem;
       cursor: pointer;
       font-weight: 400;
       font-size: 1.1rem;
-    }
-
-    li:hover {
-      //background: $sidemenu-highlight;
-      border-right: 10px solid $sidemenu-highlight;
     }
 
     a {

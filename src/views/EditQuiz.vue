@@ -220,14 +220,11 @@ export default {
       console.log('Serialized question: ', updatedQuestion);
 
       try {
-        // const updatedQuestion = {
-        // };
         await updateQuestion({
           url: serverUrl,
           token: this.getToken,
           question: updatedQuestion,
         });
-
 
         this.editQuestionID = null;
         this.questions = this.questions.map((qst) => {

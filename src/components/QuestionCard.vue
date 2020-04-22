@@ -12,7 +12,7 @@
         {{question.text}}
       </h1>
       <p v-for="answer in question.answers" :key="answer.text">
-        <checkbox v-model="answer.correct">
+        <checkbox v-model="answer.correct" disabled>
           {{answer.text}}
         </checkbox>
       </p>
