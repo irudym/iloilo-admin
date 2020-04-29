@@ -262,7 +262,7 @@ h4 {
 }
 
 .table-header {
-  margin-top: 2rem;
+  margin: 2rem 0 0 0;
   background: $sign_box-colour;
   border-radius: 6px;
   padding: 0.8rem 1rem;
