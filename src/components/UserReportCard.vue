@@ -9,7 +9,7 @@
         </div>
         <div class="col-3">
           <div class="table-cell">
-            {{report.user}}
+            <div class="circle" :style="userScoreStyle"/>{{report.user}}
           </div>
         </div>
         <div class="col-3">
@@ -43,6 +43,10 @@ export default {
   props: {
     report: Object,
     questions: Array,
+    maxScore: {
+      type: Number,
+      default: () => (100),
+    },
   },
   data() {
     return {
@@ -55,6 +59,18 @@ export default {
     },
   },
   computed: {
+    userScoreStyle() {
+      let color = '#FFCDC1';
+      if (this.report.score > this.maxScore / 3) {
+        color = '#F7EAAF';
+      }
+      if (this.report.score > (this.maxScore * 2) / 3) {
+        color = '#B3EBA5';
+      }
+      return {
+        background: color,
+      };
+    },
   },
 };
 </script>
@@ -91,6 +107,15 @@ export default {
 
 .user-row:hover {
   background: $sign_box-colour;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: transparent;
+  display: inline-block;
+  margin-right: 0.5rem;
 }
 
 </style>

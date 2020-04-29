@@ -92,6 +92,7 @@ export default {
         questions: [],
       },
       userQuestions: [],
+      maxScore: 100,
     };
   },
   async mounted() {
@@ -114,6 +115,7 @@ export default {
       this.endedAt = activeQuiz.data.attributes.ended_at;
       this.isValid = activeQuiz.data.attributes.is_valid;
       this.description = activeQuiz.data.attributes.description;
+      this.maxScore = activeQuiz.data.attributes.max_score;
 
       console.log('ActiveQuiz response: ', activeQuiz);
 
