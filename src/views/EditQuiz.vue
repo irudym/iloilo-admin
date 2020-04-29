@@ -207,8 +207,9 @@ export default {
         this.errorMessage = error.detail;
       }
     },
-    async updateQuestion(question) {
+    async updateQuestion(updQuestion) {
       // update question directly to server
+      const question = { ...updQuestion };
       console.log('update question: ', question);
       const updatedQuestion = {
         ...serializeQuestion(

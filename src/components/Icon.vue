@@ -13,6 +13,10 @@ import Check from '../assets/icons/check.svg';
 import Info from '../assets/icons/info-circle.svg';
 import Cog from '../assets/icons/cog.svg';
 import User from '../assets/icons/user-alt.svg';
+import Users from '../assets/icons/users.svg';
+import ClockIconAlt from '../assets/icons/clock-alt.svg';
+import ListAlt from '../assets/icons/list-alt.svg';
+import Ban from '../assets/icons/ban.svg';
 
 export default {
   name: 'Icon',
@@ -30,12 +34,16 @@ export default {
         trash: TrashIcon,
         play: PlayIcon,
         clock: ClockIcon,
+        clockAlt: ClockIconAlt,
         times: Times,
         flag: Flag,
         check: Check,
         info: Info,
         cog: Cog,
         user: User,
+        users: Users,
+        listAlt: ListAlt,
+        ban: Ban,
       },
     };
   },

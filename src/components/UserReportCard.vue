@@ -1,64 +1,48 @@
 <template>
-  <div class="row report-card">
+  <div class="row report-row">
     <div class="col-12">
       <div class="row">
-        <div class='col-12'>
-          <div class="name">
+        <div class="col-2">
+          <button class="icon-button" @click="details">
+            <icon name="listAlt" width="2rem" />
+          </button>
+        </div>
+        <div class="col-3">
+          <div class="table-cell">
             {{report.user}}
           </div>
-            <p>
-              Результат: {{report.score}}
-            </p>
-          <start-button :title="buttonTitle" @click="details" />
         </div>
-      </div>
-
-      <div v-show="showDetails" class="row">
-        <div class="col-sm-12">
-          <div class="row question-card" v-for="question in report.questions" :key="question.id">
-            <div class="col-sm-12">
-              <div class="question-text">
-                {{question.text}}
-                <div class="hint">
-                  <p>
-                    В этом вопросе всего ответов: {{question.answer_count}}
-                  </p>
-                  <p>
-                    Из них правильных: {{question.correct_count}}
-                  </p>
-                </div>
-              </div>
-              <div class="row" v-for="answer in question.answers" :key="answer.id">
-                <div class="col-12" :style="{'margin-top':'1rem'}">
-                  <div class="mark">
-                    <icon v-if="answer.correct" width="1rem" name="check" />
-                    <icon v-else width="1rem" name="times" />
-                  </div>
-                  <div class='answer-text'>
-                    {{answer.text}}
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="col-3">
+          <div class="table-cell">
+            {{report.score}} баллов
           </div>
         </div>
+      </div>
+      <div v-show="showDetails">
+        <user-report-question-card
+          v-for="(question, index) in report.userQuestions"
+          :question="question"
+          :index="index"
+          :key="question.id"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import StartButton from './StartButton.vue';
 import Icon from './Icon.vue';
+import UserReportQuestionCard from './UserReportQuestionCard.vue';
 
 export default {
   name: 'UserReportCard',
   components: {
-    StartButton,
     Icon,
+    UserReportQuestionCard,
   },
   props: {
     report: Object,
+    questions: Array,
   },
   data() {
     return {
@@ -71,9 +55,6 @@ export default {
     },
   },
   computed: {
-    buttonTitle() {
-      return this.showDetails ? 'Скрыть детали' : 'Показать детали';
-    },
   },
 };
 </script>
@@ -81,42 +62,24 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/colours.scss';
 
-.report-card {
-  margin-top: 2rem;
-  border: 1px solid $form_border-colour;
-  padding: 1rem;
-  border-radius: 6px;
+.report-row {
+  margin: 2rem 0;
 }
 
-.name {
-  font-size: 1.3rem;
+.icon-button {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  // width: 2rem;
+  min-width: 0;
 }
 
-.question-card {
-  margin-top: 2.6rem;
-  margin-bottom: 1rem;
-}
-
-.question-text {
-  line-height: 1.5rem;
-}
-
-.mark {
-  display: inline-flex;
-  padding: 0 0.6rem;
-  width: 2.4rem;
-}
-
-.answer-text {
-  display: inline-flex;
-}
-
-.hint {
-  line-height: 1rem;
-  p {
-    font-size: 0.8rem;
-    color: $description-colour;
-  }
+.table-cell {
+  position: absolute;
+  top: 25%;
 }
 
 </style>
