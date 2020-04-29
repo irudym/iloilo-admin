@@ -24,7 +24,10 @@ export default {
     Icon,
   },
   props: {
-    width: String,
+    width: {
+      type: String,
+      default: () => ('1.6rem'),
+    },
   },
   data() {
     return {

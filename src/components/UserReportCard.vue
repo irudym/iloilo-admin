@@ -1,9 +1,9 @@
 <template>
   <div class="row report-row">
     <div class="col-12">
-      <div class="row">
+      <div class="row user-row" @click.prevent.stop="details">
         <div class="col-2">
-          <button class="icon-button" @click="details">
+          <button class="icon-button">
             <icon name="listAlt" width="2rem" />
           </button>
         </div>
@@ -80,6 +80,17 @@ export default {
 .table-cell {
   position: absolute;
   top: 25%;
+}
+
+.user-row {
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 0.2rem 0;
+}
+
+.user-row:hover {
+  background: $sign_box-colour;
 }
 
 </style>
