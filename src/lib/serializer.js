@@ -90,7 +90,7 @@ export const serializeQuestion = (text, answers, quizId) => {
         answers: {
           data: answers.map((answer) => ({
             type: 'answer',
-            id: answer.id,
+            id: answer.id.match('new') ? null : answer.id,
             attributes: {
               text: answer.text,
               correct: answer.correct,

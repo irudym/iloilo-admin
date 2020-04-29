@@ -5,13 +5,13 @@
         <textarea
           name="text"
           rows="4"
-          v-model="question.text"
+          v-model="text"
         />
     </float-label>
-    <div class="answer-block" v-for="answer in question.answers" :key="answer.id">
+    <div class="answer-block" v-for="answer in answers" :key="answer.id">
       <div class="answer-buttons">
         <checkbox id="answer.id" style="margin-bottom: 20px;" v-model="answer.correct" />
-        <remove-button @click="removeAnswer(answer.id)" :width="'1.3rem'" />
+        <trash-button @click="removeAnswer(answer.id)" :width="'1.3rem'" />
       </div>
       <float-label
         class="fl"
@@ -26,25 +26,27 @@
     </div>
     <add-answer-button @click="addAnswer"/>
     <ok-button title="Обновить" @click="update" />
-    <cancel-button title="Отменить" @click="$emit('cancel')" />
+    <cancel-button title="Отменить" @click="cancel" />
   </div>
 </div>
 </template>
 
 <script>
+import { cloneDeep } from 'lodash';
 import FloatLabel from './FloatLabel.vue';
 import AddAnswerButton from './AddAnswerButton.vue';
-import RemoveButton from './RemoveButton.vue';
+import TrashButton from './TrashButton.vue';
 import OkButton from './OkButton.vue';
 import CancelButton from './CancelButton.vue';
 import Checkbox from './Checkbox.vue';
+
 
 export default {
   name: 'EditQuestion',
   components: {
     FloatLabel,
     AddAnswerButton,
-    RemoveButton,
+    TrashButton,
     OkButton,
     CancelButton,
     Checkbox,
@@ -66,18 +68,21 @@ export default {
         question: null,
         answer: null,
       },
+      text: this.question.text, // question text
+      id: this.question.id,
+      answers: cloneDeep(this.question.answers),
     };
   },
   methods: {
     validate() {
       const errors = {};
-      if (!this.question.text.trim()) {
+      if (!this.text.trim()) {
         errors.question = ['текст вопроса не может быть пустым'];
       }
 
       let hasCorrect = false;
       // eslint-disable-next-line array-callback-return
-      this.question.answers.map((answer) => {
+      this.answers.map((answer) => {
         hasCorrect = hasCorrect || answer.correct;
         if (!answer.text.trim()) {
           errors.answer = 'текст ответа не может быть пустым';
@@ -97,27 +102,38 @@ export default {
     update() {
       if (!this.validate()) {
         this.errors = {};
-        this.$emit('update', { ...this.question });
+        const updated = {
+          id: this.id,
+          text: this.text,
+          answers: this.answers,
+        };
+        this.$emit('update', updated);
       }
     },
+    cancel() {
+      this.id = this.question.id;
+      this.text = this.question.text;
+      this.answers = cloneDeep(this.question.answers);
+      this.$emit('cancel');
+    },
     addAnswer() {
-      this.question.answers.push({
-        id: this.answerCount,
+      this.answers.push({
+        id: `new-${this.answerCount}`, // are you stupid?
         text: '',
         correct: false,
       });
       this.errors = {};
     },
     removeAnswer(id) {
-      console.log('answers: ', this.question.answers);
+      console.log('answers: ', this.answers);
 
       // remove answer from the array
-      this.question.answers = this.question.answers.filter((answer) => (answer.id !== id));
+      this.answers = this.answers.filter((answer) => (answer.id !== id));
     },
   },
   computed: {
     answerCount() {
-      return this.question.answers.length + 1;
+      return this.answers.length + 1;
     },
   },
 };

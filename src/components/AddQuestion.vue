@@ -58,7 +58,7 @@ export default {
       answer: '',
       answerCount: 1,
       answers: [{
-        id: 1,
+        id: 'new-add-1',
         text: '',
         correct: false,
       }],
@@ -68,7 +68,7 @@ export default {
     addAnswer() {
       this.answerCount += 1;
       this.answers.push({
-        id: this.answerCount,
+        id: `new-add-${this.answerCount}`,
         text: '',
         correct: false,
       });
@@ -106,7 +106,7 @@ export default {
     clearFields() {
       this.text = '';
       this.answers = [{
-        id: 1,
+        id: 'new-add-1',
         text: '',
         correct: false,
       }];

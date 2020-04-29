@@ -8,9 +8,9 @@
     </div>
     <div class="type-line"/>
     <div class="main">
-      <h1>
+      <div class="question-text">
         {{question.text}}
-      </h1>
+      </div>
       <p v-for="answer in question.answers" :key="answer.text">
         <checkbox v-model="answer.correct" disabled>
           {{answer.text}}
@@ -92,6 +92,12 @@ export default {
 
 .main {
   margin-left: 5rem;
+
+  .question-text {
+    line-height: 1.4rem;
+    font-size: 1rem;
+    font-weight: 500;
+  }
 }
 
 .type-line {
