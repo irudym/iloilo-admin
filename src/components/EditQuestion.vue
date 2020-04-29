@@ -4,14 +4,19 @@
     <float-label label="Вопрос" :error="errors.question">
         <textarea
           name="text"
-          rows="4"
+          rows="5"
           v-model="text"
+          :style="{'line-height': '1.4rem'}"
         />
     </float-label>
     <div class="answer-block" v-for="answer in answers" :key="answer.id">
-      <div class="answer-buttons">
-        <checkbox id="answer.id" style="margin-bottom: 20px;" v-model="answer.correct" />
-        <trash-button @click="removeAnswer(answer.id)" :width="'1.3rem'" />
+      <div class="answer-buttons-block">
+        <checkbox id="answer.id" v-model="answer.correct" />
+        <trash-button
+          @click="removeAnswer(answer.id)"
+          :width="'1.3rem'"
+          :style="{'bottom': '0'}"
+        />
       </div>
       <float-label
         class="fl"
@@ -19,8 +24,9 @@
         :error="errors.answer">
           <textarea
             name="answer"
-            rows="2"
+            rows="3"
             v-model="answer.text"
+            :style="{'line-height': '1.4rem'}"
           />
       </float-label>
     </div>
@@ -158,11 +164,11 @@ export default {
   margin-left: 32px;
 }
 
-.answer-buttons {
-  width: 30px;
+.answer-buttons-block {
   position: absolute;
-  left: 0;
-  padding: 1rem 4rem;
+  padding: 1rem 0 0 0;
+  width: 3rem;
+  height: 5rem;
 }
 
 </style>
