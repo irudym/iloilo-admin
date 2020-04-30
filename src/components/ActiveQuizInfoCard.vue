@@ -1,8 +1,8 @@
 <template>
-  <div class="row info-quizzes" :style="quizzesClass" @click="$emit('click')">
-    <div class="col-sm-7">
-      <div class="main">
-        <h1>
+  <div class="row report-row">
+    <div class="col-12">
+      <div class="row user-row" @click.prevent.stop="$emit('click')">
+        <div class="col-2 icon">
           <icon
             v-if="quiz.attributes.is_valid"
             name="clock"
@@ -13,20 +13,32 @@
             name="flag"
             :style="{'margin-right': '0.2rem', 'height': '1.3rem'}"
           />
-          {{quiz.attributes.pin}}
-        </h1>
-        <h4>{{quiz.attributes.title}}</h4>
-        <div class="started" :style="infoStyle">
+          <p class="status" :style="infoStyle">
             {{currentStatus}}
+          </p>
         </div>
-        <div v-if="quiz.attributes.ended_at" class="timestamp">
-          Время завершения {{endedDate}}, осталось {{remainedTime}}
+        <div class="col-2">
+          <div class="table-cell pin">
+            <div>
+              {{quiz.attributes.pin}}
+            </div>
+          </div>
         </div>
-        <div class="description">{{quiz.attributes.description}}</div>
-      </div>
-    </div>
-    <div class="col-sm-5">
-      <div class="info-panel">
+        <div class="col-5">
+          <div class="table-cell quiz-title">
+            <div>
+              {{quiz.attributes.title}}
+              <p class="description">
+                {{quiz.attributes.description}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-3 timestamp">
+          <div class="table-cell">
+            {{endedDate}}
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -62,7 +74,7 @@ export default {
   computed: {
     endedDate() {
       const date = new Date(this.quiz.attributes.ended_at);
-      return `${date.getHours()}:${date.getMinutes()} / ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      return `${date.getHours()}:${(`0${date.getMinutes()}`).slice(-2)} | ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
     },
     remainedTime() {
       const currentDate = new Date();
@@ -73,12 +85,12 @@ export default {
       return `${hours} часов, ${minutes} минут`;
     },
     currentStatus() {
-      let status = 'Тест не активирован';
+      let status = 'Не активирован';
       if (this.quiz.attributes.started) {
         status = 'В процесcе...';
       }
       if (!this.quiz.attributes.is_valid) {
-        status = 'Тест завершён';
+        status = '';
       }
       return status;
     },
@@ -92,100 +104,74 @@ export default {
 <style lang="scss" scoped>
 @import '../styles/colours.scss';
 
-.info-quizzes {
-  transition-property: all;
-  transition-duration: 0.3s;
-  transition-timing-function: ease-out;
-  transition-delay: 0s;
-  max-height: 500px;
-  height: auto;
-  overflow: hidden;
-  margin-top: 3rem;
+.report-row {
+  margin: 2rem 0;
+}
+
+.icon-button {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  box-shadow: none;
+  // width: 2rem;
+  min-width: 0;
+}
+
+.table-cell {
+  // position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.pin {
+  color: $add_button-colour;
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+
+.quiz-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  font-family: Roboto;
+  padding: 0.5rem 0 ;
+}
+
+.user-row {
+  background: transparent;
   border-radius: 6px;
-  border: 1px solid transparent;
   cursor: pointer;
+  padding: 0.2rem 0;
 }
 
-.info-quizzes:hover {
-  border: 1px solid $form_border-colour;
+.user-row:hover {
+  background: $sign_box-colour;
 }
 
-.main {
-  margin-left: 5rem;
-  min-height: 10rem;
-
-  h1 {
-    font-family: Oswald;
-  }
-
-  h4 {
-    font-family: Oswald;
-    font-size: 1.4rem;
-    color: $description-colour;
-    margin: 1rem 0;
-    font-weight: 500;
-  }
-
-  .started {
-    color: $ok_button-colour;
-  }
-
-  .description {
-    font-family: Roboto;
-    font-weight: 400;
-    font-size: 1.1rem;
-    color: $description-colour;
-    overflow-x: hidden;
-  }
-}
-
-.type-line {
-    position: absolute;
-    top: 1rem;
-    bottom: 1rem;
-    left: 4.7rem;
-    width: 2px;
-    background: $form_border-colour;
-    z-index: 2;
-    padding: 1px;
-    border-radius: 5px;
-}
-
-.tool-panel {
-  width: 4.2rem;
-  position: absolute;
-  top: 0;
-  padding: 1rem;
-  height: 100%;
-
-  .tool-button {
-    width: 1.7rem;
-    height: 1.7rem;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .play-button {
-    margin-top: 10px;
-    margin-left: -2px;
-  }
+.description {
+  font-size: 0.8rem;
+  color: $description-colour;
+  display: block;
+  align-self: flex-end;
 }
 
 .timestamp {
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-  font-size: 1rem;
-  font-weight: 400;
-  color: $description-colour;
+  padding: 0.5rem 0;
+  font-weight: 500;
+  font-size: 0.9rem;
 }
 
-.info-panel {
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 1rem;
-  color: $description-colour;
-  overflow-x: hidden;
+.icon {
+  padding: 0.5rem 1rem;
+}
+
+.status {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: $checkbox_check-colour;
 }
 
 </style>

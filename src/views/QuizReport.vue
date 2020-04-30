@@ -210,7 +210,7 @@ export default {
   },
   methods: {
     back() {
-      this.$router.push('/admin/reports');
+      this.$router.go(-1); // push('/admin/reports');
     },
   },
   computed: {

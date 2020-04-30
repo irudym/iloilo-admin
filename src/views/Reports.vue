@@ -15,16 +15,13 @@
         <error-message v-show="errorMessage" v-bind:message="errorMessage" />
       </div>
     </div>
-    <div class="row">
-      <div class="col-lg-12">
-        <active-quiz-info-card
-          v-for="quiz in activeQuizzes"
-          :key="quiz.id"
-          :quiz="quiz"
-          @click="report(quiz.id)"
-        />
-      </div>
-    </div>
+    <table-header :header="tableHeader" :style="{'margin-top': '6rem'}"/>
+    <active-quiz-info-card
+      v-for="quiz in activeQuizzes"
+      :key="quiz.id"
+      :quiz="quiz"
+      @click="report(quiz.id)"
+    />
   </div>
 </template>
 
@@ -32,19 +29,40 @@
 import { mapGetters } from 'vuex';
 import ErrorMessage from '../components/ErrorMessage.vue';
 import ActiveQuizInfoCard from '../components/ActiveQuizInfoCard.vue';
+import TableHeader from '../components/TableHeader.vue';
 import { fetchActiveQuizzes } from '../lib/api';
 import { serverUrl } from '../config/globals';
+
 
 export default {
   name: 'Reports',
   components: {
     ErrorMessage,
+    TableHeader,
     ActiveQuizInfoCard,
   },
   data() {
     return {
       errorMessage: null,
       activeQuizzes: [],
+      tableHeader: [
+        {
+          text: 'Статус',
+          size: 'col-2',
+        },
+        {
+          text: 'PIN',
+          size: 'col-2',
+        },
+        {
+          text: 'Название теста',
+          size: 'col-5',
+        },
+        {
+          text: 'Время завершения',
+          size: 'col-3',
+        },
+      ],
     };
   },
   async mounted() {

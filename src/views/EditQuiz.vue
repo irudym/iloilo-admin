@@ -192,7 +192,7 @@ export default {
     },
     cancelQuestion() {
       this.addQuestionForm = false;
-      this.editQuestionID = null;
+      // this.editQuestionID = null;
     },
     editQuestion(id) {
       this.editQuestionID = id;

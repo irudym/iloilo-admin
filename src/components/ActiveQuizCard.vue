@@ -7,7 +7,7 @@
       </div>
       <div class="type-line" />
       <div class="main">
-        <h1>
+        <div class="icon">
           <icon
             v-if="quiz.attributes.is_valid"
             name="clock"
@@ -18,20 +18,25 @@
             name="flag"
             :style="{'margin-right': '0.2rem', 'height': '1.3rem'}"
           />
-          {{quiz.attributes.pin}}
-        </h1>
+        </div>
+        <h1 class="pin">{{quiz.attributes.pin}}</h1>
         <h4>{{quiz.attributes.title}}</h4>
-        <div class="started" :style="infoStyle">
-            {{currentStatus}}
-        </div>
-        <div v-if="quiz.attributes.ended_at" class="timestamp">
-          Время завершения {{endedDate}} {{remainedTime}}
-        </div>
         <div class="description">{{quiz.attributes.description}}</div>
+        <button class="gray-button" @click="report">
+          Отчет<span class="arrow">></span>
+        </button>
       </div>
     </div>
     <div class="col-sm-5">
       <div class="info-panel">
+        <p>
+          Время завершения {{endedDate}} {{remainedTime}}
+        </p>
+        <p>
+          Продолжительность теста {{quiz.attributes.duration}} минут
+        <p>
+          {{submittedUsers}} человек прошло этот тест
+        </p>
       </div>
     </div>
   </div>
@@ -65,6 +70,9 @@ export default {
       this.hiddenContent = { display: 'none' };
       setTimeout(() => (this.$emit('delete')), 250);
     },
+    report() {
+      this.$router.push(`reports/${this.quiz.id}`);
+    },
   },
   computed: {
     endedDate() {
@@ -78,9 +86,9 @@ export default {
       const currentDate = new Date();
       const endedDate = new Date(this.quiz.attributes.ended_at);
       const remained = endedDate - currentDate;
-      const hours = Math.round(remained / 1000 / 60 / 60);
-      const minutes = Math.round((remained - hours * 60 * 60 * 1000) / 1000 / 60);
-      return `, осталось ${hours} часов, ${minutes} минут`;
+      // const hours = Math.round(remained / 1000 / 60 / 60);
+      const minutes = Math.round(remained / 1000 / 60);
+      return `, осталось ${minutes} минут`;
     },
     currentStatus() {
       let status = 'Тест не активирован';
@@ -94,6 +102,9 @@ export default {
     },
     infoStyle() {
       return this.quiz.attributes.is_valid ? null : { color: '#E8150C' };
+    },
+    submittedUsers() {
+      return this.quiz.attributes.submitted_users.length;
     },
   },
 };
@@ -111,22 +122,34 @@ export default {
   height: auto;
   overflow: hidden;
   margin-top: 3rem;
+  margin-bottom: 4.5rem;
 }
 
 .main {
   margin-left: 5rem;
   min-height: 10rem;
 
+  .icon {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+
+  .pin {
+    display: inline-block;
+    color: $add_button-colour;
+  }
+
   h1 {
     font-family: Oswald;
+    margin: 0.3rem 0;
   }
 
   h4 {
-    font-family: Oswald;
-    font-size: 1.4rem;
-    color: $description-colour;
+    font-family: Roboto;
+    font-size: 1.3rem;
+    color: $title-colour;
     margin: 1rem 0;
-    font-weight: 500;
+    font-weight: 400;
   }
 
   .started {
@@ -136,10 +159,31 @@ export default {
   .description {
     font-family: Roboto;
     font-weight: 400;
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     color: $description-colour;
     overflow-x: hidden;
   }
+}
+
+.arrow {
+  margin-left: 2rem;
+}
+
+.gray-button {
+  outline: none;
+  box-shadow: none;
+  background: $sign_box-colour;
+  border-radius: 6px;
+  color: rgb(70, 75, 80);
+  margin: 2rem 0 0 0;
+  width: 6rem;
+  height: 2rem;
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.gray-button:hover {
+  background: #DEE5EC;
 }
 
 .type-line {
@@ -148,7 +192,7 @@ export default {
     bottom: 1rem;
     left: 4.7rem;
     width: 2px;
-    background: $form_border-colour;
+    background: $sign_box-colour;
     z-index: 2;
     padding: 1px;
     border-radius: 5px;
