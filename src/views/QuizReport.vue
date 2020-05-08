@@ -1,15 +1,13 @@
 <template>
   <div>
     <div class="activate_quizzes row">
-      <div class="col-lg-9">
-          <p class="title">Отчеты по тесту {{pin}}</p>
-          <div class="row">
+      <page-header :title="pageTitle">
+        <div class="row">
             <div class="col-lg-3">
               <ok-button title="<< Назад" @click="back"/>
             </div>
           </div>
-      </div>
-      <div class="col-lg-3" />
+      </page-header>
     </div>
     <div class="row">
       <div class="col-lg-7">
@@ -58,14 +56,15 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import ErrorMessage from '../components/ErrorMessage.vue';
 import UserReportCard from '../components/UserReportCard.vue';
 import OkButton from '../components/OkButton.vue';
 import Sign from '../components/Sign.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchReport, fetchActiveQuiz, fetchQuiz } from '../lib/api';
 import { deSerializeQuiz } from '../lib/serializer';
 import { serverUrl } from '../config/globals';
 
+const ErrorMessage = () => import('../components/ErrorMessage.vue');
 
 export default {
   name: 'QuizReport',
@@ -74,6 +73,7 @@ export default {
     UserReportCard,
     OkButton,
     Sign,
+    PageHeader,
   },
   props: {
     id: [Number, String],
@@ -215,6 +215,9 @@ export default {
   },
   computed: {
     ...mapGetters(['getTimeInterval', 'isLogged', 'getToken']),
+    pageTitle() {
+      return `Отчеты по тесту ${this.pin}`;
+    },
     amountOfUsers() {
       return this.reports.length;
     },

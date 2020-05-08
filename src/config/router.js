@@ -6,13 +6,17 @@ import AddQuiz from '../views/AddQuiz.vue';
 import EditQuiz from '../views/EditQuiz.vue';
 import ActivateQuiz from '../views/ActivateQuiz.vue';
 import ActiveQuizzes from '../views/ActiveQuizzes.vue';
-import Login from '../views/Login.vue';
-import Registration from '../views/Registration.vue';
-import Reports from '../views/Reports.vue';
-import Groups from '../views/Groups.vue';
 import AddGroup from '../views/AddGroup.vue';
-import EditGroup from '../views/EditGroup.vue';
-import QuizReport from '../views/QuizReport.vue';
+
+
+const Login = () => import(/* webpackChunkName: "login" */ '../views/Login.vue');
+const Logout = () => import(/* webpackChunkName: "logout" */ '../views/Logout.vue');
+const Registration = () => import(/* webpackChunkName: "registration" */ '../views/Registration.vue');
+const Groups = () => import(/* webpackChunkName: "logout" */ '../views/Groups.vue');
+const EditGroup = () => import('../views/EditGroup.vue');
+const Reports = () => import(/* webpackChunkName: "reports" */ '../views/Reports.vue');
+const QuizReport = () => import(/* webpackChunkName: "report" */ '../views/QuizReport.vue');
+const Profile = () => import(/* webpackChunkName: "report" */ '../views/Profile.vue');
 
 Vue.use(Router);
 
@@ -85,12 +89,22 @@ export default new Router({
           component: QuizReport,
           props: true,
         },
+        {
+          path: 'profile',
+          name: 'profile',
+          component: Profile,
+        },
       ],
     },
     {
       path: '/admin/login',
       name: 'login',
       component: Login,
+    },
+    {
+      path: '/logout',
+      name: 'logout',
+      component: Logout,
     },
     {
       path: '/about',

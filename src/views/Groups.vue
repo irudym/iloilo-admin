@@ -1,14 +1,13 @@
 <template>
   <div>
     <div class="groups row">
-      <div class="col-lg-9">
-          <p class="title">Группы</p>
-          <div class="row">
-            <div class="col-lg-3">
-              <add-button title="Создать" @click="add"/>
-            </div>
+      <page-header title="Группы">
+        <div class="row">
+          <div class="col-lg-3">
+            <add-button title="Создать" @click="add"/>
           </div>
-      </div>
+        </div>
+      </page-header>
       <div class="col-lg-3" />
     </div>
       <div class="row">
@@ -33,10 +32,12 @@
 <script>
 import { mapGetters } from 'vuex';
 import AddButton from '../components/AddButton.vue';
-import ErrorMessage from '../components/ErrorMessage.vue';
 import GroupCard from '../components/GroupCard.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchGroups, deleteGroup } from '../lib/api';
 import { serverUrl } from '../config/globals';
+
+const ErrorMessage = () => import('../components/ErrorMessage.vue');
 
 export default {
   name: 'Groups',
@@ -44,6 +45,7 @@ export default {
     AddButton,
     ErrorMessage,
     GroupCard,
+    PageHeader,
   },
   data() {
     return {

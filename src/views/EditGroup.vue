@@ -1,16 +1,14 @@
 <template>
   <div>
     <div class="groups row">
-      <div class="col-lg-9">
-          <p class="title">Редактирование группы</p>
-          <div class="row">
-            <div class="col-sm-10">
-              <ok-button title="Сохранить" @click="submit" />
-              <cancel-button @click="cancel" />
-            </div>
+      <page-header title="Редактирование группы">
+        <div class="row">
+          <div class="col-sm-10">
+            <ok-button title="Сохранить" @click="submit" />
+            <cancel-button @click="cancel" />
           </div>
-      </div>
-      <div class="col-lg-3" />
+        </div>
+      </page-header>
     </div>
     <div class="row">
       <div class="col-lg-6 edit-panel">
@@ -36,6 +34,7 @@ import OkButton from '../components/OkButton.vue';
 import CancelButton from '../components/CancelButton.vue';
 import FloatLabel from '../components/FloatLabel.vue';
 import ErrorMessage from '../components/ErrorMessage.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchGroup, updateGroup } from '../lib/api';
 import { serverUrl } from '../config/globals';
 import { serializeGroup } from '../lib/serializer';
@@ -43,7 +42,7 @@ import { serializeGroup } from '../lib/serializer';
 export default {
   name: 'AddGroup',
   props: {
-    id: Number,
+    id: [Number, String],
   },
   data() {
     return {
@@ -60,6 +59,7 @@ export default {
     CancelButton,
     FloatLabel,
     ErrorMessage,
+    PageHeader,
   },
   async mounted() {
     clearInterval(this.getTimeInterval);

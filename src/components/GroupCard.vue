@@ -85,6 +85,9 @@ export default {
   top: 0;
   padding: 1rem;
   height: 100%;
+  opacity: 0;
+  transition: opacity 0.5s;
+  transition-timing-function: ease-in-out;
 
   .tool-button {
     width: 1.7rem;
@@ -97,6 +100,20 @@ export default {
   .play-button {
     margin-top: 10px;
     margin-left: -2px;
+  }
+}
+
+.groups:hover {
+  .tool-panel {
+    opacity: 1;
+  }
+}
+
+@media (pointer:none), (pointer:coarse) {
+  .groups {
+    .tool-panel {
+      opacity: 1;
+    }
   }
 }
 
@@ -123,7 +140,7 @@ export default {
     bottom: 1rem;
     left: 4.7rem;
     width: 2px;
-    background: $form_border-colour;
+    background: $sign_box-colour;
     z-index: 2;
     padding: 1px;
     border-radius: 5px;

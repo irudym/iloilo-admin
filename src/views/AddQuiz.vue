@@ -1,16 +1,14 @@
 <template>
   <div>
     <div class="quizzes row">
-      <div class="col-lg-9">
-          <p class="title">{{pageTitle}}</p>
-          <div class="row">
-            <div class="col-sm-10">
-              <ok-button title="Сохранить" @click="submit" />
-              <cancel-button @click="cancel" />
-            </div>
+      <page-header :title="pageTitle">
+        <div class="row">
+          <div class="col-sm-10">
+            <ok-button title="Сохранить" @click="submit" />
+            <cancel-button @click="cancel" />
           </div>
-      </div>
-      <div class="col-lg-3" />
+        </div>
+      </page-header>
     </div>
     <div class="row">
       <div class="col-lg-6 edit-panel">
@@ -70,6 +68,7 @@ import AddQuestion from '../components/AddQuestion.vue';
 import QuestionCard from '../components/QuestionCard.vue';
 import EditQuestion from '../components/EditQuestion.vue';
 import OptionInput from '../components/OptionInput.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchQuiz, createQuiz, updateQuiz } from '../lib/api';
 import { serverUrl } from '../config/globals';
 import { serializeQuiz, deSerializeQuiz } from '../lib/serializer';
@@ -86,6 +85,7 @@ export default {
     QuestionCard,
     EditQuestion,
     OptionInput,
+    PageHeader,
   },
   props: {
     id: {

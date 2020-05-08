@@ -55,6 +55,10 @@ body {
   font-size: 12px;
 }
 
+a {
+  font-size: 1rem;
+}
+
 #admin {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -107,10 +111,11 @@ h4 {
 }
 
 .title {
-    font-weight: 500;
-    font-size: 2.5rem;
-    color: $title-colour;
-    font-family: 'Oswald', sans-serif;
+  font-weight: 500;
+  font-size: 2.5rem;
+  color: $title-colour;
+  font-family: 'Oswald', sans-serif;
+  margin: $title-margin 0;
 }
 
 button {

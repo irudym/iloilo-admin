@@ -2,9 +2,9 @@
   <div class="question-card">
     <div class="tool-box">
       <div class="tool-button" @click="$emit('edit')">
-        <icon name="edit" />
+        <icon name="edit" width="1.5rem" />
       </div>
-      <trash-button @click="$emit('delete')" />
+      <trash-button @click="$emit('delete')" width="1.5rem" />
     </div>
     <div class="type-line"/>
     <div class="main">

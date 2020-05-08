@@ -309,6 +309,44 @@ export const login = async ({ url, credentials }) => {
   }
 };
 
+export const getUserInfo = async ({ url, token, id }) => {
+  try {
+    const response = await axios.get(`${url}/users/${id}`, {
+      headers: {
+        Authorization: token,
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.data;
+  } catch (error) {
+    throw constructError(error);
+  }
+};
+
+/**
+ * Update user profile: name and password
+ * @param {string} url API server URL
+ * @param {string} token Security token, which identifies an user
+ * @param {number} id User id, actually it's useless as user identified by token
+ * @param {object} user User object with name and password
+ */
+export const updateUser = async ({
+  url, token, id, user,
+}) => {
+  try {
+    const response = await axios.put(`${url}/users/${id}`, user,
+      {
+        headers: {
+          Authorization: token,
+          'Content-Type': 'application/json',
+        },
+      });
+    return response.data;
+  } catch (error) {
+    throw constructError(error);
+  }
+};
+
 /**
  * Load all groups from server
  * @param {string} url API server URL

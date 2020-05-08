@@ -1,15 +1,13 @@
 <template>
   <div>
     <div class="quizzes row">
-      <div class="col-lg-9">
-          <p class="title">Тесты</p>
-          <div class="row">
-            <div class="col-lg-3">
-              <add-button title="Создать" @click="add"/>
-            </div>
+      <page-header title="Тесты">
+        <div class="row">
+          <div class="col-lg-3">
+            <add-button title="Создать" @click="add"/>
           </div>
-      </div>
-      <div class="col-lg-3" />
+        </div>
+      </page-header>
     </div>
       <div class="row">
         <div class="col-lg-7">
@@ -37,6 +35,7 @@ import { mapGetters } from 'vuex';
 import AddButton from '../components/AddButton.vue';
 import QuizCard from '../components/QuizCard.vue';
 import ErrorMessage from '../components/ErrorMessage.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchQuizzes, deleteQuiz, activateQuiz } from '../lib/api';
 import { serverUrl } from '../config/globals';
 
@@ -46,6 +45,7 @@ export default {
     AddButton,
     QuizCard,
     ErrorMessage,
+    PageHeader,
   },
   data() {
     return {

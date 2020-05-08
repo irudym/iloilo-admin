@@ -123,6 +123,44 @@ export default {
   overflow: hidden;
   margin-top: 3rem;
   margin-bottom: 4.5rem;
+
+  .tool-panel {
+    width: 4.2rem;
+    position: absolute;
+    top: 0;
+    padding: 1rem;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s;
+    transition-timing-function: ease-in-out;
+
+    .tool-button {
+      width: 1.7rem;
+      height: 1.7rem;
+      margin: 0;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    .play-button {
+      margin-top: 10px;
+      margin-left: -2px;
+    }
+  }
+}
+
+.quizzes:hover {
+  .tool-panel {
+    opacity: 1;
+  }
+}
+
+@media (pointer:none), (pointer:coarse) {
+  .quizzes {
+    .tool-panel {
+      opacity: 1;
+    }
+  }
 }
 
 .main {
@@ -196,27 +234,6 @@ export default {
     z-index: 2;
     padding: 1px;
     border-radius: 5px;
-}
-
-.tool-panel {
-  width: 4.2rem;
-  position: absolute;
-  top: 0;
-  padding: 1rem;
-  height: 100%;
-
-  .tool-button {
-    width: 1.7rem;
-    height: 1.7rem;
-    margin: 0;
-    padding: 0;
-    cursor: pointer;
-  }
-
-  .play-button {
-    margin-top: 10px;
-    margin-left: -2px;
-  }
 }
 
 .timestamp {

@@ -1,13 +1,7 @@
 <template>
   <div>
     <div class="activate_quizzes row">
-      <div class="col-lg-9">
-          <p class="title">Текущие тестирования</p>
-          <div class="row">
-            <div class="col-lg-3">
-            </div>
-          </div>
-      </div>
+      <page-header title="Текущие тестирования"></page-header>
       <div class="col-lg-3" />
     </div>
     <div class="row">
@@ -33,6 +27,7 @@ import { mapGetters } from 'vuex';
 // import OkButton from '../components/OkButton.vue';
 import ErrorMessage from '../components/ErrorMessage.vue';
 import ActiveQuizCard from '../components/ActiveQuizCard.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchActiveQuizzes } from '../lib/api';
 import { serverUrl } from '../config/globals';
 
@@ -42,6 +37,7 @@ export default {
     // OkButton,
     ErrorMessage,
     ActiveQuizCard,
+    PageHeader,
   },
   data() {
     return {

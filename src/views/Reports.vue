@@ -1,13 +1,7 @@
 <template>
   <div>
     <div class="activate_quizzes row">
-      <div class="col-lg-9">
-          <p class="title">Отчеты</p>
-          <div class="row">
-            <div class="col-lg-3">
-            </div>
-          </div>
-      </div>
+      <page-header title="Отчеты" />
       <div class="col-lg-3" />
     </div>
     <div class="row">
@@ -27,11 +21,13 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import ErrorMessage from '../components/ErrorMessage.vue';
 import ActiveQuizInfoCard from '../components/ActiveQuizInfoCard.vue';
 import TableHeader from '../components/TableHeader.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchActiveQuizzes } from '../lib/api';
 import { serverUrl } from '../config/globals';
+
+const ErrorMessage = () => import('../components/ErrorMessage.vue');
 
 
 export default {
@@ -40,6 +36,7 @@ export default {
     ErrorMessage,
     TableHeader,
     ActiveQuizInfoCard,
+    PageHeader,
   },
   data() {
     return {

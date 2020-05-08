@@ -1,15 +1,13 @@
 <template>
   <div>
     <div class="quizzes row">
-      <div class="col-lg-9">
-          <p class="title">{{pageTitle}}</p>
-          <div class="row">
-            <div class="col-sm-10">
-              <ok-button title="<< Назад" @click="back" />
-            </div>
+      <page-header :title="pageTitle">
+        <div class="row">
+          <div class="col-sm-10">
+            <ok-button title="<< Назад" @click="back" />
           </div>
-      </div>
-      <div class="col-lg-3" />
+        </div>
+      </page-header>
     </div>
     <div class="row">
       <div class="col-lg-6 edit-panel">
@@ -68,6 +66,7 @@ import AddQuestion from '../components/AddQuestion.vue';
 import QuestionCard from '../components/QuestionCard.vue';
 import EditQuestion from '../components/EditQuestion.vue';
 import OptionInput from '../components/OptionInput.vue';
+import PageHeader from '../components/PageHeader.vue';
 import {
   fetchQuiz,
   updateQuiz,
@@ -89,6 +88,7 @@ export default {
     QuestionCard,
     EditQuestion,
     OptionInput,
+    PageHeader,
   },
   props: {
     id: {

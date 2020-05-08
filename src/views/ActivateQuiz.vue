@@ -1,15 +1,13 @@
 <template>
   <div>
     <div class="activate_quizzes row">
-      <div class="col-lg-9">
-          <p class="title">Начать тестирование</p>
-          <div class="row">
-            <div class="col-lg-3">
-              <ok-button title="<< Назад" @click="back"/>
-            </div>
+      <page-header title="Начать тестирование">
+        <div class="row">
+          <div class="col-lg-3">
+            <ok-button title="<< Назад" @click="back"/>
           </div>
-      </div>
-      <div class="col-lg-3" />
+        </div>
+      </page-header>
     </div>
     <div class="row">
       <div class="col-lg-7">
@@ -52,9 +50,11 @@
 import { mapGetters, mapActions } from 'vuex';
 import OkButton from '../components/OkButton.vue';
 import StartButton from '../components/StartButton.vue';
-import ErrorMessage from '../components/ErrorMessage.vue';
+import PageHeader from '../components/PageHeader.vue';
 import { fetchActiveQuiz, startQuiz } from '../lib/api';
 import { serverUrl } from '../config/globals';
+
+const ErrorMessage = () => import('../components/ErrorMessage.vue');
 
 export default {
   name: 'ActivateQuiz',
@@ -62,6 +62,7 @@ export default {
     OkButton,
     StartButton,
     ErrorMessage,
+    PageHeader,
   },
   props: {
     id: {
