@@ -76,7 +76,7 @@ export default {
     },
     updatedDate() {
       const date = new Date(this.quiz.attributes.updated_at);
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     },
     duration() {
       const string = createCountFormatter({

@@ -77,7 +77,7 @@ export default {
   computed: {
     endedDate() {
       const date = new Date(this.quiz.attributes.ended_at);
-      return `${date.getHours()}:${date.getMinutes()} | ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      return `${date.getHours()}:${date.getMinutes()} | ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
     },
     remainedTime() {
       if (!this.quiz.attributes.is_valid) {
