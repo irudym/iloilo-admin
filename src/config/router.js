@@ -122,4 +122,13 @@ export default new Router({
       component: Registration,
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // return desired position
+    if (savedPosition) {
+      return new Promise((resolve) => {
+        setTimeout(() => { resolve(savedPosition); }, 3500);
+      });
+    }
+    return { x: 0, y: 0 };
+  },
 });
