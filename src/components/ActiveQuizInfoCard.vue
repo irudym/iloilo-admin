@@ -46,6 +46,7 @@
 
 <script>
 import Icon from './Icon.vue';
+import { dateTimeFormatter } from '../lib/utils';
 
 export default {
   name: 'ActiveQuizInfoCard',
@@ -74,7 +75,10 @@ export default {
   computed: {
     endedDate() {
       const date = new Date(this.quiz.attributes.ended_at);
-      return `${date.getHours()}:${(`0${date.getMinutes()}`).slice(-2)} | ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      // return `${date.getHours()}:${(`0${date.getMinutes()}`).slice(-2)} |
+      // ${(`0${date.getDate() + 1}`).slice(-2)}/${(`0${date.getMonth() + 1}`).slice(-2)}
+      // /${date.getFullYear()}`;
+      return dateTimeFormatter(date);
     },
     remainedTime() {
       const currentDate = new Date();

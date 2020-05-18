@@ -26,7 +26,7 @@
     </div>
     <div class="row signs">
       <div class="col-md-4">
-        <sign icon="users" text="человек прошло тест" :value="amountOfUsers" colour="#0990B3" />
+        <sign icon="users" :text="userTook" :value="amountOfUsers" colour="#0990B3" />
       </div>
       <div class="col-md-4">
         <sign icon="clockAlt" text="завершилось тестирование" :value="endDate" colour="#E8C41C" />
@@ -63,6 +63,7 @@ import PageHeader from '../components/PageHeader.vue';
 import { fetchReport, fetchActiveQuiz, fetchQuiz } from '../lib/api';
 import { deSerializeQuiz } from '../lib/serializer';
 import { serverUrl } from '../config/globals';
+import { createCountFormatter } from '../lib/utils';
 
 const ErrorMessage = () => import('../components/ErrorMessage.vue');
 
@@ -220,6 +221,19 @@ export default {
     },
     amountOfUsers() {
       return this.reports.length;
+    },
+    userTook() {
+      const passed = createCountFormatter({
+        one: 'прошел',
+        two: 'прошло',
+        few: 'прошло',
+      })(this.reports.length);
+      const people = createCountFormatter({
+        one: 'человек',
+        two: 'человека',
+        few: 'человек',
+      })(this.reports.length);
+      return `${people} ${passed} тест`;
     },
     endDate() {
       if (this.isValid) {

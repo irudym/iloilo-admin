@@ -16,3 +16,7 @@ export const createCountFormatter = ({
     ];
   };
 };
+
+export const dateTimeFormatter = (date) => (`${(`0${date.getHours()}`).slice(-2)}:${(`0${date.getMinutes()}`).slice(-2)} | ${(`0${date.getDate()}`).slice(-2)}/${(`0${date.getMonth() + 1}`).slice(-2)}/${date.getFullYear()}`);
+
+export const dateFormatter = (date) => (`${(`0${date.getDate()}`).slice(-2)}/${(`0${date.getMonth() + 1}`).slice(-2)}/${date.getFullYear()}`);

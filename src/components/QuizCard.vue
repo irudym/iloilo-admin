@@ -33,7 +33,7 @@
 <script>
 import Icon from './Icon.vue';
 import TrashButton from './TrashButton.vue';
-import { createCountFormatter } from '../lib/utils';
+import { createCountFormatter, dateFormatter } from '../lib/utils';
 
 export default {
   name: 'QuizCard',
@@ -64,7 +64,7 @@ export default {
   computed: {
     createdDate() {
       const date = new Date(this.quiz.attributes.created_at);
-      return `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+      return dateFormatter(date);
     },
     amountOfQuestions() {
       const string = createCountFormatter({
@@ -76,7 +76,7 @@ export default {
     },
     updatedDate() {
       const date = new Date(this.quiz.attributes.updated_at);
-      return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+      return dateFormatter(date);
     },
     duration() {
       const string = createCountFormatter({

@@ -35,7 +35,7 @@
         <p>
           Продолжительность теста {{quiz.attributes.duration}} минут
         <p>
-          {{submittedUsers}} человек прошло этот тест
+          {{submittedUsers}} этот тест
         </p>
       </div>
     </div>
@@ -45,6 +45,7 @@
 <script>
 import TrashButton from './TrashButton.vue';
 import Icon from './Icon.vue';
+import { dateTimeFormatter, createCountFormatter } from '../lib/utils';
 
 export default {
   name: 'ActiveQuizCard',
@@ -77,7 +78,7 @@ export default {
   computed: {
     endedDate() {
       const date = new Date(this.quiz.attributes.ended_at);
-      return `${date.getHours()}:${date.getMinutes()} | ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+      return dateTimeFormatter(date);
     },
     remainedTime() {
       if (!this.quiz.attributes.is_valid) {
@@ -86,9 +87,15 @@ export default {
       const currentDate = new Date();
       const endedDate = new Date(this.quiz.attributes.ended_at);
       const remained = endedDate - currentDate;
-      // const hours = Math.round(remained / 1000 / 60 / 60);
       const minutes = Math.round(remained / 1000 / 60);
-      return `, осталось ${minutes} минут`;
+
+      const string = createCountFormatter({
+        one: 'минута',
+        two: 'минуты',
+        few: 'минут',
+      })(minutes);
+
+      return `, осталось ${minutes} ${string}`;
     },
     currentStatus() {
       let status = 'Тест не активирован';
@@ -104,7 +111,18 @@ export default {
       return this.quiz.attributes.is_valid ? null : { color: '#E8150C' };
     },
     submittedUsers() {
-      return this.quiz.attributes.submitted_users.length;
+      const amount = this.quiz.attributes.submitted_users.length;
+      const string = createCountFormatter({
+        one: 'прошел',
+        two: 'прошло',
+        few: 'прошло',
+      })(amount);
+      const people = createCountFormatter({
+        one: 'человек',
+        two: 'человека',
+        few: 'человек',
+      })(amount);
+      return `${amount} ${people} ${string}`;
     },
   },
 };
