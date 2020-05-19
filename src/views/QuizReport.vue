@@ -21,6 +21,12 @@
           <div class="description">
             {{description}}
           </div>
+          <div v-show="comment" class="comment">
+            <icon name="comment" width="1rem" />
+            <span :style="{'margin-left':'0.5rem'}">
+              {{comment}}
+            </span>
+        </div>
         </div>
       </div>
     </div>
@@ -60,6 +66,7 @@ import UserReportCard from '../components/UserReportCard.vue';
 import OkButton from '../components/OkButton.vue';
 import Sign from '../components/Sign.vue';
 import PageHeader from '../components/PageHeader.vue';
+import Icon from '../components/Icon.vue';
 import { fetchReport, fetchActiveQuiz, fetchQuiz } from '../lib/api';
 import { deSerializeQuiz } from '../lib/serializer';
 import { serverUrl } from '../config/globals';
@@ -75,6 +82,7 @@ export default {
     OkButton,
     Sign,
     PageHeader,
+    Icon,
   },
   props: {
     id: [Number, String],
@@ -94,6 +102,7 @@ export default {
       },
       userQuestions: [],
       maxScore: 100,
+      comment: null,
     };
   },
   async mounted() {
@@ -117,6 +126,7 @@ export default {
       this.isValid = activeQuiz.data.attributes.is_valid;
       this.description = activeQuiz.data.attributes.description;
       this.maxScore = activeQuiz.data.attributes.max_score;
+      this.comment = activeQuiz.data.attributes.comment;
 
       console.log('ActiveQuiz response: ', activeQuiz);
 
@@ -285,6 +295,12 @@ h4 {
   padding: 0.8rem 1rem;
   color:  $title-colour;
   font-weight: 500;
+}
+
+.comment {
+  margin-top: 1rem;
+  color: $description-colour;
+  font-style: italic;
 }
 
 </style>

@@ -126,7 +126,7 @@ export default new Router({
     // return desired position
     if (savedPosition) {
       return new Promise((resolve) => {
-        setTimeout(() => { resolve(savedPosition); }, 3500);
+        setTimeout(() => { resolve(savedPosition); }, 2500);
       });
     }
     return { x: 0, y: 0 };

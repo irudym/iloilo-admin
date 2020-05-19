@@ -148,10 +148,18 @@ export const activateQuiz = async ({ url, token, id }) => {
  * @param {string} url API server URL
  * @param {string} token Security token
  * @param {string} id Activated Quiz ID
+ * @param {object} attributes Object which may contain updated duration and comment
  */
-export const startQuiz = async ({ url, token, id }) => {
+export const startQuiz = async ({
+  url, token, id, attributes,
+}) => {
   try {
-    const response = await axios.put(`${url}/active_quizzes/${id}`, {},
+    const response = await axios.put(`${url}/active_quizzes/${id}`,
+      {
+        data: {
+          attributes,
+        },
+      },
       {
         headers: {
           Authorization: token,

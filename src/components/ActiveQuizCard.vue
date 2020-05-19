@@ -22,6 +22,12 @@
         <h1 class="pin">{{quiz.attributes.pin}}</h1>
         <h4>{{quiz.attributes.title}}</h4>
         <div class="description">{{quiz.attributes.description}}</div>
+        <div v-show="quiz.attributes.comment" class="comment">
+          <icon name="comment" width="1rem" />
+          <span :style="{'margin-left':'0.5rem'}">
+            {{quiz.attributes.comment}}
+          </span>
+        </div>
         <button class="gray-button" @click="report">
           Отчет<span class="arrow">></span>
         </button>
@@ -29,7 +35,7 @@
     </div>
     <div class="col-sm-5">
       <div class="info-panel">
-        <p>
+        <p v-show="quiz.attributes.started">
           Время завершения {{endedDate}} {{remainedTime}}
         </p>
         <p>
@@ -268,6 +274,12 @@ export default {
   font-size: 1rem;
   color: $description-colour;
   overflow-x: hidden;
+}
+
+.comment {
+  margin-top: 1rem;
+  color: $description-colour;
+  font-style: italic;
 }
 
 </style>

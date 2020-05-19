@@ -18,7 +18,23 @@
       <div class="col-lg-12">
         <div class="pin-container">
           <div class="pin">PIN: <span>{{pin}}</span></div>
-          <start-button v-if="!started" title="Начать" @click="start"/>
+        </div>
+        <div v-if="!started">
+          <div class="col-lg-6 setup-panel">
+            <h4>Настройки теста</h4>
+            <div class="options">
+              <option-input title="Длительность тестирования" v-model="duration" units="минут" />
+            </div>
+            <div :style="{'margin-left':'-8px'}">
+              <float-label
+                label="Комментарий к тестированию"
+                :value="comment"
+              >
+                <textarea name="comment" rows="4" v-model="comment" />
+              </float-label>
+            </div>
+          </div>
+          <start-button title="Начать" @click="start"/>
         </div>
       </div>
     </div>
@@ -51,6 +67,8 @@ import { mapGetters, mapActions } from 'vuex';
 import OkButton from '../components/OkButton.vue';
 import StartButton from '../components/StartButton.vue';
 import PageHeader from '../components/PageHeader.vue';
+import OptionInput from '../components/OptionInput.vue';
+import FloatLabel from '../components/FloatLabel.vue';
 import { fetchActiveQuiz, startQuiz } from '../lib/api';
 import { serverUrl } from '../config/globals';
 
@@ -63,6 +81,8 @@ export default {
     StartButton,
     ErrorMessage,
     PageHeader,
+    OptionInput,
+    FloatLabel,
   },
   props: {
     id: {
@@ -78,6 +98,8 @@ export default {
       endedAt: null,
       connectedUsers: [],
       submittedUsers: [],
+      duration: null,
+      comment: null,
     };
   },
   methods: {
@@ -86,8 +108,23 @@ export default {
       this.$router.push('/admin/active_quizzes');
     },
     async start() {
+      this.errorMessage = null;
+      // check duration cannot be less or equal to 0
+      if (this.duration < 1) {
+        this.errorMessage = {
+          title: 'Ошибка!',
+          detail: 'Длительность теста не может быть меньше или равна нулю',
+        };
+        return;
+      }
       try {
-        const response = await startQuiz({ url: serverUrl, token: this.getToken, id: this.id });
+        const attributes = {
+          duration: this.duration,
+          comment: this.comment,
+        };
+        const response = await startQuiz({
+          url: serverUrl, token: this.getToken, id: this.id, attributes,
+        });
         console.log('Start response: ', response);
         this.started = response.data.attributes.started;
         this.endedAt = response.data.attributes.endedAt;
@@ -118,6 +155,7 @@ export default {
       this.endedAt = response.data.attributes.ended_at;
       this.connectedUsers = response.data.attributes.connected_users;
       this.submittedUsers = response.data.attributes.submitted_users;
+      this.duration = response.data.attributes.duration;
 
       // start users update
       const tid = setInterval(this.updateUsers, 3000);
@@ -183,6 +221,25 @@ export default {
     font-family: Roboto;
     font-size: 1rem;
     color: $description-colour;
+  }
+}
+
+.setup-panel {
+  margin-top: 5rem;
+  padding-left: 0;
+
+  h4 {
+    font-family: Roboto;
+    font-weight: 500;
+    font-size: 1.0rem;
+    color: $title-colour;
+  }
+
+  .options {
+    font-size: 1rem;
+    color: $options-colour;
+    line-height: 1.5rem;
+    margin-top: 3rem;
   }
 }
 

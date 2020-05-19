@@ -17,6 +17,7 @@ import Users from '../assets/icons/users.svg';
 import ClockIconAlt from '../assets/icons/clock-alt.svg';
 import ListAlt from '../assets/icons/list-alt.svg';
 import Ban from '../assets/icons/ban.svg';
+import Comment from '../assets/icons/comment.svg';
 
 export default {
   name: 'Icon',
@@ -44,6 +45,7 @@ export default {
         users: Users,
         listAlt: ListAlt,
         ban: Ban,
+        comment: Comment,
       },
     };
   },
