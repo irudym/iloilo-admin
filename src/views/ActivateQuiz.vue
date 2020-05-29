@@ -25,7 +25,7 @@
             <div class="options">
               <option-input title="Длительность тестирования" v-model="duration" units="минут" />
             </div>
-            <div :style="{'margin-left':'-8px'}">
+            <div class="comment-area" >
               <float-label
                 label="Комментарий к тестированию"
                 :value="comment"
@@ -105,7 +105,8 @@ export default {
   methods: {
     ...mapActions(['setTimeInterval']),
     back() {
-      this.$router.push('/admin/active_quizzes');
+      // this.$router.push('/admin/active_quizzes');
+      this.$router.go(-1);
     },
     async start() {
       this.errorMessage = null;
@@ -221,6 +222,15 @@ export default {
     font-family: Roboto;
     font-size: 1rem;
     color: $description-colour;
+  }
+}
+
+.comment-area {
+  margin-left: -8px;
+
+  textarea {
+    font-family: Roboto;
+    font-size: 1rem;
   }
 }
 

@@ -40,11 +40,11 @@ export default {
 }
 
 .router-link {
-  margin: 0.2rem 0;
+  margin: 0rem 0;
 }
 
 .router-link:hover {
-  border-right: 10px solid $sidemenu-highlight;
+  border-right: 5px solid $sidemenu-highlight;
 }
 
 .sidebar {

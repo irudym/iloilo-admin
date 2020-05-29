@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 // import OkButton from '../components/OkButton.vue';
 import ErrorMessage from '../components/ErrorMessage.vue';
 import ActiveQuizCard from '../components/ActiveQuizCard.vue';
@@ -42,10 +42,11 @@ export default {
   data() {
     return {
       errorMessage: null,
-      activeQuizzes: [],
+      // activeQuizzes: [],
     };
   },
   methods: {
+    ...mapActions(['loadActiveQuizzes']),
     back() {
       this.$router.go(-1);
     },
@@ -63,7 +64,8 @@ export default {
 
     try {
       const response = await fetchActiveQuizzes({ url: serverUrl, token: this.getToken });
-      this.activeQuizzes = response.data;
+      // this.activeQuizzes = response.data;
+      this.loadActiveQuizzes(response.data);
     } catch (error) {
       this.errorMessage = error;
       if (error.detail === 'Not enough or too many segments') {
@@ -73,6 +75,7 @@ export default {
   },
   computed: {
     ...mapGetters(['getToken', 'getTimeInterval', 'isLogged']),
+    ...mapState(['activeQuizzes']),
   },
 };
 </script>

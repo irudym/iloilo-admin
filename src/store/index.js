@@ -17,6 +17,8 @@ const initialState = {
     id: Cookies.get(COOKIE_USER_ID),
   },
   timeIntervalId: null,
+  activeQuizzes: [],
+  reports: [],
 };
 
 export default new Vuex.Store({
@@ -45,6 +47,12 @@ export default new Vuex.Store({
     [types.SET_TIME_INTERVAL](state, payload) {
       state.timeIntervalId = payload.id;
     },
+    [types.LOAD_ACTIVE_QUIZZES](state, payload) {
+      state.activeQuizzes = [...payload.activeQuizzes];
+    },
+    [types.LOAD_REPORTS](state, payload) {
+      state.reports = [...payload.reports];
+    },
   },
   actions: {
     loginUser(context, user) {
@@ -55,6 +63,12 @@ export default new Vuex.Store({
     },
     setTimeInterval(context, id) {
       context.commit(types.SET_TIME_INTERVAL, { id });
+    },
+    loadActiveQuizzes(context, activeQuizzes) {
+      context.commit(types.LOAD_ACTIVE_QUIZZES, { activeQuizzes });
+    },
+    loadReports(context, reports) {
+      context.commit(types.LOAD_REPORTS, { reports });
     },
   },
   getters: {

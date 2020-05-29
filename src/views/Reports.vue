@@ -11,7 +11,7 @@
     </div>
     <table-header :header="tableHeader" :style="{'margin-top': '6rem'}"/>
     <active-quiz-info-card
-      v-for="quiz in activeQuizzes"
+      v-for="quiz in reports"
       :key="quiz.id"
       :quiz="quiz"
       @click="report(quiz.id)"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState, mapActions } from 'vuex';
 import ActiveQuizInfoCard from '../components/ActiveQuizInfoCard.vue';
 import TableHeader from '../components/TableHeader.vue';
 import PageHeader from '../components/PageHeader.vue';
@@ -41,7 +41,6 @@ export default {
   data() {
     return {
       errorMessage: null,
-      activeQuizzes: [],
       tableHeader: [
         {
           text: 'Статус',
@@ -72,7 +71,7 @@ export default {
 
     try {
       const response = await fetchActiveQuizzes({ url: serverUrl, token: this.getToken });
-      this.activeQuizzes = response.data;
+      this.loadReports(response.data);
     } catch (error) {
       this.errorMessage = error;
       if (error.detail === 'Not enough or too many segments') {
@@ -81,12 +80,14 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['loadReports']),
     report(id) {
       this.$router.push(`/admin/reports/${id}`);
     },
   },
   computed: {
     ...mapGetters(['getTimeInterval', 'isLogged', 'getToken']),
+    ...mapState(['reports']),
   },
 };
 </script>
